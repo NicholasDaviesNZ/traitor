@@ -7,7 +7,7 @@ RUN apt-get install -y libgl1-mesa-glx
 #RUN pip install git+https://github.com/TankredO/traitor
 
 #use this to get this repo
-RUN pip install git+https://github.com/NicholasDaviesNZ/traitor_clone
+RUN pip install git+https://github.com/NicholasDaviesNZ/traitor
 
 # Set the working directory
 WORKDIR /app
