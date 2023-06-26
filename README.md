@@ -7,7 +7,16 @@ A tool to extract morphological traits from images. Note this is a clone and mod
 
 ## Installation
 
-If using docker run docker build -t traitor_tool . in the directory containing the docker file, then use docker run -it -v ~/traitor/sample_images:/app/images -v ~/traitor/images_extracted:/app/images_extracted traitor_tool and replace the local paths to what works for your system. 
+If using docker run 
+```bash
+docker build -t traitor_tool .
+```
+in the directory containing the docker file, then use 
+```bash
+docker run -it -v ~/traitor/sample_images:/app/images -v ~/traitor/images_extracted:/app/images_extracted traitor_tool
+```
+and replace the local paths to what works for your system. A bash terminal will start and the examples below will work as described. The folder sample_images contains some test images provided by the origonal paper.
+
 
 Otherwise follow the steps below. 
 
