@@ -3,9 +3,13 @@
 
 # traitor
 
-A tool to extract morphological traits from images.
+A tool to extract morphological traits from images. Note this is a clone and modification from the https://github.com/TankredO/traitor.git repo
 
 ## Installation
+
+If using docker run docker build -t traitor_tool . in the directory containing the docker file, then use docker run -it -v ~/traitor/sample_images:/app/images -v ~/traitor/images_extracted:/app/images_extracted traitor_tool and replace the local paths to what works for your system. 
+
+Otherwise follow the steps below. 
 
 ### Requirements
 
