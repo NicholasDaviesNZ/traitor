@@ -17,6 +17,13 @@ docker run -it -v ~/traitor/sample_images:/app/images -v ~/traitor/images_extrac
 ```
 and replace the local paths to what works for your system. A bash terminal will start and the examples below will work as described. The folder sample_images contains some test images provided by the origonal paper.
 
+Note we sould be able to mount our z drive into the wsl like this:
+```bash
+mkdir /mnt/smb
+sudo mount -t drvfs 'Z:\' /mnt/smb
+```
+then the docker run becomes:
+docker run -it -v /mnt/smb/scratch/DataMarlon:/app/images -v ~/traitor/images_extracted:/app/images_extracted traitor_tool
 
 Otherwise follow the steps below. 
 
@@ -68,6 +75,7 @@ All Traitor’s functionality can be accessed using the Traitor commandline appl
 Help with information on the commands is easily accessible for Traitor and all its features by adding `-h` after the commands.
 
 #### Examples (enter code in your CLI):
+
 
 a) Obtain general information about Traitor and its commands:
 
