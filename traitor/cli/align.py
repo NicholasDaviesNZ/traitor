@@ -235,7 +235,7 @@ def align(
 
     image_extensions = IMAGE_EXTENSIONS
     image_files = np.array(
-        [f for f in image_dir.glob("*") if f.suffix.lower() in image_extensions]
+        [f for f in image_dir.rglob("*") if f.suffix.lower() in image_extensions]
     )
     image_names = np.array([f.with_suffix("").name for f in image_files])
 
