@@ -286,7 +286,7 @@ def measure(
         mask_dir = d / "masks"
         contour_dir = d / "contours"
 
-        cur_img_files = np.array(list(img_dir.glob("*.png")))
+        cur_img_files = np.array(list(img_dir.rglob("*.png")))
         cur_image_names = np.array([f.with_suffix("").name for f in cur_img_files])
 
         cur_mask_files = np.array([mask_dir / f"{n}_mask.png" for n in cur_image_names])
