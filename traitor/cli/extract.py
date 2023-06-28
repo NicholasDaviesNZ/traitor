@@ -20,7 +20,7 @@ def run_single(
     import numpy as np
 
     with warnings.catch_warnings(record=True) as w:
-        image_name = image_file.with_suffix("").name
+        image_name = image_file.with_suffix("")#.name
 
         # prepare output files
         if out_dir is None:
@@ -267,7 +267,7 @@ def extract(
     from tqdm import tqdm
     from ..defaults import IMAGE_EXTENSIONS
 
-    image_dir_name = image_dir.name
+    image_dir_name = image_dir #.name
     if out_dir is None:
         out_dir = Path(f"{image_dir_name}_detections")
 
@@ -282,7 +282,7 @@ def extract(
     args_list = [
         (
             f,
-            out_dir.joinpath(f.with_suffix("").name),
+            out_dir.joinpath(f.with_suffix("")),#.name),
             background_color,
             masks_output,
             bbox_output,
