@@ -139,7 +139,7 @@ def run_single(
 
     if len(w) > 0:
         warnings_str = ", ".join([str(_w.message) for _w in w])
-        warnings.warn(f"{image_file.name}: {warnings_str}")
+        warnings.warn(f"{image_file}: {warnings_str}")#.name}: {warnings_str}")
 
     n_contours = len(contours)
     if n_contours > DEFAULT_HIGH_N_CONTOURS:
@@ -275,6 +275,7 @@ def extract(
     image_files = [
         f for f in image_dir.rglob("*") if f.suffix.lower() in image_extensions
     ]
+    print(image_files)
     if len(image_files) < 1:
         sys.stderr.write(f"ERROR: Could not find any image in {image_dir}.")
         sys.exit(1)
