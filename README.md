@@ -24,7 +24,7 @@ sudo mount -t drvfs 'Z:\' /mnt/smb
 ```
 then the docker run becomes:
 ```bash
-docker run -it -v /mnt/smb/scratch/DataMarlon:/app/images -v ~/traitor/images_extracted:/app/images_extracted traitor_tool
+docker run -it -v /mnt/smb/scratch/DataMarlon:/app/images -v ~/traitor:/app traitor_tool
 ```
 Otherwise follow the steps below. 
 
