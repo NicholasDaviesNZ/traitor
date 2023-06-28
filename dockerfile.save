@@ -1,0 +1,12 @@
+FROM python:3.8-slim
+# Install Conda (Miniconda)
+# Install Traitor viaRUN pip install git
+
+RUN pip install git+https://github.com/TankredO/traitor
+
+# Set the working directory
+WORKDIR /app
+
+# Set the entry point
+CMD ["python"]
+
