@@ -24,7 +24,7 @@ def run_single(
 
         # prepare output files
         if out_dir is None:
-            out_dir = Path(image_name)
+            out_dir = Path(image_file) # used to be image_name
         out_file_mask = (out_dir / f"{image_name}_mask").with_suffix(".png")
 
         # parse background color string
