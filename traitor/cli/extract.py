@@ -24,8 +24,8 @@ def run_single(
 
         # prepare output files
         if out_dir is None:
-            out_dir = Path(image_file) # used to be image_name
-        out_file_mask = (out_dir / f"{image_name}_mask").with_suffix(".png")
+            out_dir = Path(image_name)
+        out_file_mask = (out_dir / f"{image_file}_mask").with_suffix(".png")
 
         # parse background color string
         bg_col: Optional[Iterable[int]] = None
@@ -114,7 +114,7 @@ def run_single(
                 if masks_output:
                     cv2.imwrite(
                         str(
-                            (out_dir_masks / f"{image_name}_mask{i}").with_suffix(
+                            (out_dir_masks / f"{image_file}_mask{i}").with_suffix(
                                 ".png"
                             )
                         ),
@@ -123,7 +123,7 @@ def run_single(
                 if bbox_output:
                     cv2.imwrite(
                         str(
-                            (out_dir_extractions / f"{image_name}_bbox{i}").with_suffix(
+                            (out_dir_extractions / f"{image_file}_bbox{i}").with_suffix(
                                 ".png"
                             )
                         ),
@@ -131,7 +131,7 @@ def run_single(
                     )
 
         if contour_output:
-            out_file_contours = (out_dir / f"{image_name}_contours").with_suffix(".jpg")
+            out_file_contours = (out_dir / f"{image_file}_contours").with_suffix(".jpg")
             contours_cv2 = [c[:, [1, 0]].astype(np.int32) for c in contours]
             contour_image = image.copy()
             cv2.drawContours(contour_image, contours_cv2, -1, (255, 215, 0), 3)
