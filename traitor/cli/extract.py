@@ -140,7 +140,7 @@ def run_single(
 
     if len(w) > 0:
         warnings_str = ", ".join([str(_w.message) for _w in w])
-        warnings.warn(f"{image_path}{image_file}: {warnings_str}")#.name}: {warnings_str}")
+        warnings.warn(f"{image_path}{image_file.name}: {warnings_str}")
 
     n_contours = len(contours)
     if n_contours > DEFAULT_HIGH_N_CONTOURS:
@@ -268,7 +268,7 @@ def extract(
     from tqdm import tqdm
     from ..defaults import IMAGE_EXTENSIONS
 
-    image_dir_name = image_dir #.name
+    image_dir_name = image_dir.name
     if out_dir is None:
         out_dir = Path(f"{image_dir_name}_detections")
 
@@ -289,7 +289,7 @@ def extract(
     args_list = [
         (
             f,
-            out_dir.joinpath(f.with_suffix("")),#.name),
+            out_dir.joinpath(f.with_suffix("").name),
             background_color,
             masks_output,
             bbox_output,
