@@ -277,7 +277,7 @@ def extract(
     #    f for f in image_dir.rglob("*") if f.suffix.lower() in image_extensions
     #]
     image_files = [
-        f.relative_to(image_dir) for f in image_dir.rglob("*")
+        f.relative_to(Path.cwd()) for f in image_dir.rglob("*")
         if f.is_file() and f.suffix.lower() in image_extensions
     ]
     
