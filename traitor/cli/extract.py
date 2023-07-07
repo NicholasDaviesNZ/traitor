@@ -280,7 +280,7 @@ def extract(
         #f.relative_to(image_dir)
         f for f in image_dir.rglob("*")
         if f.is_file() and f.suffix.lower() in image_extensions
-    #]
+    ]
     
     if len(image_files) < 1:
         sys.stderr.write(f"ERROR: Could not find any image in {image_dir}.")
