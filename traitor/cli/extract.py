@@ -273,13 +273,13 @@ def extract(
         out_dir = Path(f"{image_dir_name}_detections")
 
     image_extensions = IMAGE_EXTENSIONS
-    image_files = [
-        f for f in image_dir.rglob("*") if f.suffix.lower() in image_extensions
-    ]
     #image_files = [
-    #    f.relative_to(image_dir)
-    #    for f in image_dir.rglob("*")
-    #    if f.is_file() and f.suffix.lower() in image_extensions
+    #    f for f in image_dir.rglob("*") if f.suffix.lower() in image_extensions
+    #]
+    image_files = [
+        f.relative_to(image_dir)
+        f for f in image_dir.rglob("*")
+        if f.is_file() and f.suffix.lower() in image_extensions
     #]
     
     if len(image_files) < 1:
