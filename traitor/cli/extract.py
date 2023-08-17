@@ -16,17 +16,22 @@ def run_single(
     rm_bg: bool,
     adaptive: bool,
 ):
+
     import warnings
     import numpy as np
 
     with warnings.catch_warnings(record=True) as w:
-        image_path = image_file.parent
-        image_name = image_file.with_suffix("").name
+        #image_path = image_file.parent
+        #image_name = image_file.with_suffix("").name
+        image_path = image_file.relative_to(image_dir)
+        image_name = image_file.stem
 
         # prepare output files
         if out_dir is None:
             out_dir = Path(image_name)
-        out_file_mask = (out_dir / f"{image_path}{image_file}_mask").with_suffix(".png")
+        #out_file_mask = (out_dir / f"{image_path}{image_file}_mask").with_suffix(".png")
+        out_file_mask = (out_dir / image_path / f"{image_name}_mask").with_suffix(".png")
+
 
         # parse background color string
         bg_col: Optional[Iterable[int]] = None
@@ -94,11 +99,15 @@ def run_single(
         out_dir.mkdir(parents=True, exist_ok=True)
 
         if masks_output:
-            out_dir_masks = out_dir / "masks"
+            #out_dir_masks = out_dir / "masks"
+            #out_dir_masks.mkdir(parents=True, exist_ok=True)
+            out_dir_masks = out_dir / "masks" / image_path
             out_dir_masks.mkdir(parents=True, exist_ok=True)
 
         if bbox_output:
-            out_dir_extractions = out_dir / "extractions"
+            #out_dir_extractions = out_dir / "extractions"
+            #out_dir_extractions.mkdir(parents=True, exist_ok=True)
+            out_dir_extractions = out_dir / "extractions" / image_path
             out_dir_extractions.mkdir(parents=True, exist_ok=True)
 
         cv2.imwrite(str(out_file_mask), bin_image * 255)
@@ -132,16 +141,25 @@ def run_single(
                     )
 
         if contour_output:
-            out_file_contours = (out_dir / f"{image_path}{image_file}_contours").with_suffix(".jpg")
+            #out_file_contours = (out_dir / f"{image_path}{image_file}_contours").with_suffix(".jpg")
+            out_file_contours = (out_dir / "contours" / image_path / f"{image_name}_contours").with_suffix(".jpg")
             contours_cv2 = [c[:, [1, 0]].astype(np.int32) for c in contours]
             contour_image = image.copy()
             cv2.drawContours(contour_image, contours_cv2, -1, (255, 215, 0), 3)
             cv2.imwrite(str(out_file_contours), contour_image[:, :, [2, 1, 0]])
 
+    #if len(w) > 0:
+        #warnings_str = ", ".join([str(_w.message) for _w in w])
+        #warnings.warn(f"{image_path}{image_file.name}: {warnings_str}")
     if len(w) > 0:
         warnings_str = ", ".join([str(_w.message) for _w in w])
-        warnings.warn(f"{image_path}{image_file.name}: {warnings_str}")
-
+        warnings.warn(f"{image_path}/{image_name}: {warnings_str}")
+    
+    #n_contours = len(contours)
+    #if n_contours > DEFAULT_HIGH_N_CONTOURS:
+    #    print(
+    #        f"WARNING: Found a high number of contours ({n_contours}). Please check {out_dir}."
+    #    )
     n_contours = len(contours)
     if n_contours > DEFAULT_HIGH_N_CONTOURS:
         print(
