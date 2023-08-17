@@ -168,11 +168,11 @@ def run_single(
         )
 
 
+#def single_wrapped(args):
+#    run_single(*other_args, image_dir)  # Pass image_dir along with other_args
 def single_wrapped(args):
-    #run_single(*args)
     image_dir, *other_args = args  # Extract image_dir from args
-    run_single(*other_args, image_dir)  # Pass image_dir along with other_args
-
+    run_single(*other_args, image_dir=image_dir)  # Pass image_dir along with other_args
     
 
 
@@ -319,10 +319,10 @@ def extract(
             padding,
             rm_bg,
             adaptive,
+            image_dir,  # Pass image_dir as an argument
         )
         for f in image_files
     ]
-    out_dir.mkdir(parents=True, exist_ok=True)
 
     with multiprocessing.Pool(processes=n_proc) as pool:
         list(
