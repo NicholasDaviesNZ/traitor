@@ -169,7 +169,11 @@ def run_single(
 
 
 def single_wrapped(args):
-    run_single(*args)
+    #run_single(*args)
+    image_dir, *other_args = args  # Extract image_dir from args
+    run_single(*other_args, image_dir)  # Pass image_dir along with other_args
+
+    
 
 
 @command(
