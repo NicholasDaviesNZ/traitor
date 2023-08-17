@@ -15,6 +15,7 @@ def run_single(
     padding: int,
     rm_bg: bool,
     adaptive: bool,
+    image_dir: Path,
 ):
 
     import warnings
