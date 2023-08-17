@@ -24,8 +24,15 @@ def run_single(
     with warnings.catch_warnings(record=True) as w:
         #image_path = image_file.parent
         #image_name = image_file.with_suffix("").name
-        image_path = image_file.relative_to(image_dir.parent)
+        
+        image_relative_path = image_file.relative_to(image_dir)
         image_name = image_file.stem
+
+        # Construct the output directory based on the relative path of the image
+        if out_dir is None:
+            out_dir = Path("images_extracted") / image_relative_path.parent / image_name
+        else:
+            out_dir = out_dir / image_relative_path.parent / image_name
 
         # prepare output files
         if out_dir is None:
