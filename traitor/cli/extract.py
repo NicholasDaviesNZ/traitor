@@ -22,7 +22,7 @@ def run_single(
     import numpy as np
 
     with warnings.catch_warnings(record=True) as w:
-        image_path = image_file.parent
+        #image_path = image_file.parent
         #image_name = image_file.with_suffix("").name
         
         image_relative_path = image_file.relative_to(image_dir.parent)
