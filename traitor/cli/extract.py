@@ -25,7 +25,7 @@ def run_single(
         image_path = image_file.parent
         #image_name = image_file.with_suffix("").name
         
-        image_relative_path = image_file.relative_to(image_dir)
+        image_relative_path = image_file.relative_to(image_dir.parent)
         image_name = image_file.stem
 
         # Construct the output directory based on the relative path of the image
