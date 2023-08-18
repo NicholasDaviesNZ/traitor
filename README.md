@@ -54,7 +54,7 @@ conda install git pip
 Run the following command in your CLI to install Traitor:
 
 ```bash
-pip install git+https://github.com/TankredO/traitor
+pip install git+https://github.com/NicholasDaviesNZ/traitor.git
 ```
 
 Test your installation:
