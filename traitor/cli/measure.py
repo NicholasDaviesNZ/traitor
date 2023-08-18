@@ -276,7 +276,10 @@ def measure(
         out_file = Path(f"{input_dir_name}_measurements.csv")
 
     print("Looking for files ...")
-    dirs = [f for f in input_dir.iterdir() if f.is_dir() and not f.name.startswith(".")]
+    #dirs = [f for f in input_dir.iterdir() if f.is_dir() and not f.name.startswith(".")]
+    dirs = [f for f in input_dir.rglob('*') if f.is_dir() and not f.name.startswith('.')]
+
+    
     image_files = np.array([])
     mask_files = np.array([])
     contour_files = np.array([])
