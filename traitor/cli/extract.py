@@ -268,8 +268,6 @@ def extract(
     from ..defaults import IMAGE_EXTENSIONS
 
     
-    print(path.relative_to(image_dir).parent)
-    
     image_dir_name = image_dir.name
     if out_dir is None:
         out_dir = Path(f"{image_dir_name}_detections")
