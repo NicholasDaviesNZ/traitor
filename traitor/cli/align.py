@@ -291,7 +291,7 @@ def align(
         (
             image_file,
             mask_file,
-            out_dir.joinpath(image_file.with_suffix("").name),
+            out_dir.joinpath(image_file.relative_to(image_dir).parent).joinpath(image_file.with_suffix("").name),
             padding,
         )
         for image_file, mask_file in zip(image_files, mask_files)
