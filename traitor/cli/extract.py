@@ -28,6 +28,9 @@ def run_single(
         image_relative_path = image_file.relative_to(image_dir.parent)
         image_name = image_file.stem
 
+        print("image_file:", image_file)
+        print("image_dir:", image_dir)
+    
         # Construct the output directory based on the relative path of the image
         if out_dir is None:
             out_dir = Path("images_extracted") / image_relative_path.parent / image_name
