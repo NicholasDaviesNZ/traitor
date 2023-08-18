@@ -15,28 +15,17 @@ def run_single(
     padding: int,
     rm_bg: bool,
     adaptive: bool,
-    image_dir: Path,
 ):
-    
-    print("image_file:", image_file)
-    print("image_dir:", image_dir)
-    
     import warnings
     import numpy as np
 
     with warnings.catch_warnings(record=True) as w:
-        #image_path = image_file.parent
-        #image_name = image_file.with_suffix("").name
-        
-        image_relative_path = image_file.relative_to(image_dir.parent)
-        image_name = image_file.stem
+        image_name = image_file.with_suffix("").name
 
         # prepare output files
         if out_dir is None:
             out_dir = Path(image_name)
-        #out_file_mask = (out_dir / f"{image_path}{image_file}_mask").with_suffix(".png")
-        out_file_mask = (out_dir / image_path / f"{image_name}_mask").with_suffix(".png")
-
+        out_file_mask = (out_dir / f"{image_name}_mask").with_suffix(".png")
 
         # parse background color string
         bg_col: Optional[Iterable[int]] = None
@@ -104,15 +93,11 @@ def run_single(
         out_dir.mkdir(parents=True, exist_ok=True)
 
         if masks_output:
-            #out_dir_masks = out_dir / "masks"
-            #out_dir_masks.mkdir(parents=True, exist_ok=True)
-            out_dir_masks = out_dir / "masks" / image_path
+            out_dir_masks = out_dir / "masks"
             out_dir_masks.mkdir(parents=True, exist_ok=True)
 
         if bbox_output:
-            #out_dir_extractions = out_dir / "extractions"
-            #out_dir_extractions.mkdir(parents=True, exist_ok=True)
-            out_dir_extractions = out_dir / "extractions" / image_path
+            out_dir_extractions = out_dir / "extractions"
             out_dir_extractions.mkdir(parents=True, exist_ok=True)
 
         cv2.imwrite(str(out_file_mask), bin_image * 255)
@@ -129,7 +114,7 @@ def run_single(
                 if masks_output:
                     cv2.imwrite(
                         str(
-                            (out_dir_masks / f"{image_path}{image_file}_mask{i}").with_suffix(
+                            (out_dir_masks / f"{image_name}_mask{i}").with_suffix(
                                 ".png"
                             )
                         ),
@@ -138,7 +123,7 @@ def run_single(
                 if bbox_output:
                     cv2.imwrite(
                         str(
-                            (out_dir_extractions / f"{image_path}{image_file}_bbox{i}").with_suffix(
+                            (out_dir_extractions / f"{image_name}_bbox{i}").with_suffix(
                                 ".png"
                             )
                         ),
@@ -146,25 +131,16 @@ def run_single(
                     )
 
         if contour_output:
-            #out_file_contours = (out_dir / f"{image_path}{image_file}_contours").with_suffix(".jpg")
-            out_file_contours = (out_dir / "contours" / image_path / f"{image_name}_contours").with_suffix(".jpg")
+            out_file_contours = (out_dir / f"{image_name}_contours").with_suffix(".jpg")
             contours_cv2 = [c[:, [1, 0]].astype(np.int32) for c in contours]
             contour_image = image.copy()
             cv2.drawContours(contour_image, contours_cv2, -1, (255, 215, 0), 3)
             cv2.imwrite(str(out_file_contours), contour_image[:, :, [2, 1, 0]])
 
-    #if len(w) > 0:
-        #warnings_str = ", ".join([str(_w.message) for _w in w])
-        #warnings.warn(f"{image_path}{image_file.name}: {warnings_str}")
     if len(w) > 0:
         warnings_str = ", ".join([str(_w.message) for _w in w])
-        warnings.warn(f"{image_path}/{image_name}: {warnings_str}")
-    
-    #n_contours = len(contours)
-    #if n_contours > DEFAULT_HIGH_N_CONTOURS:
-    #    print(
-    #        f"WARNING: Found a high number of contours ({n_contours}). Please check {out_dir}."
-    #    )
+        warnings.warn(f"{image_file.name}: {warnings_str}")
+
     n_contours = len(contours)
     if n_contours > DEFAULT_HIGH_N_CONTOURS:
         print(
@@ -172,12 +148,8 @@ def run_single(
         )
 
 
-#def single_wrapped(args):
-#    run_single(*other_args, image_dir)  # Pass image_dir along with other_args
 def single_wrapped(args):
-    image_dir, *other_args = args  # Extract image_dir from args
-    run_single(*other_args, image_dir=image_dir)  # Pass image_dir along with other_args
-    
+    run_single(*args)
 
 
 @command(
@@ -298,16 +270,11 @@ def extract(
     image_dir_name = image_dir.name
     if out_dir is None:
         out_dir = Path(f"{image_dir_name}_detections")
-    
+
     image_extensions = IMAGE_EXTENSIONS
-    #image_files = [
-    #    f for f in image_dir.rglob("*") if f.suffix.lower() in image_extensions
-    #]
     image_files = [
-        f.relative_to(Path.cwd()) for f in image_dir.rglob("*")
-        if f.is_file() and f.suffix.lower() in image_extensions
+        f for f in image_dir.glob("*") if f.suffix.lower() in image_extensions
     ]
-    
     if len(image_files) < 1:
         sys.stderr.write(f"ERROR: Could not find any image in {image_dir}.")
         sys.exit(1)
@@ -323,11 +290,12 @@ def extract(
             padding,
             rm_bg,
             adaptive,
-            image_dir,  # Pass image_dir as an argument
         )
         for f in image_files
     ]
+    out_dir.mkdir(parents=True, exist_ok=True)
     print(args_list)
+    print(out_dir)
     with multiprocessing.Pool(processes=n_proc) as pool:
         list(
             tqdm(
