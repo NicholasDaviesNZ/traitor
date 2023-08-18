@@ -267,6 +267,9 @@ def extract(
     from tqdm import tqdm
     from ..defaults import IMAGE_EXTENSIONS
 
+    
+    print(path.relative_to(image_dir).parent)
+    
     image_dir_name = image_dir.name
     if out_dir is None:
         out_dir = Path(f"{image_dir_name}_detections")
@@ -282,7 +285,7 @@ def extract(
     args_list = [
         (
             f,
-            out_dir.joinpath(f.with_suffix("").name),
+            out_dir.joinpath(path.relative_to(image_dir).parent).joinpath(f.with_suffix("").name),
             background_color,
             masks_output,
             bbox_output,
