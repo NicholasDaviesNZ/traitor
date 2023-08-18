@@ -273,7 +273,7 @@ def extract(
 
     image_extensions = IMAGE_EXTENSIONS
     image_files = [
-        f for f in image_dir.glob("*") if f.suffix.lower() in image_extensions
+        f for f in image_dir.rglob("*") if f.suffix.lower() in image_extensions
     ]
     if len(image_files) < 1:
         sys.stderr.write(f"ERROR: Could not find any image in {image_dir}.")
