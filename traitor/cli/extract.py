@@ -17,9 +17,10 @@ def run_single(
     adaptive: bool,
     image_dir: Path,
 ):
+    
     print("image_file:", image_file)
     print("image_dir:", image_dir)
-
+    
     import warnings
     import numpy as np
 
@@ -29,14 +30,6 @@ def run_single(
         
         image_relative_path = image_file.relative_to(image_dir.parent)
         image_name = image_file.stem
-
-
-    
-        # Construct the output directory based on the relative path of the image
-        if out_dir is None:
-            out_dir = Path("images_extracted") / image_relative_path.parent / image_name
-        else:
-            out_dir = out_dir / image_relative_path.parent / image_name
 
         # prepare output files
         if out_dir is None:
@@ -305,7 +298,7 @@ def extract(
     image_dir_name = image_dir.name
     if out_dir is None:
         out_dir = Path(f"{image_dir_name}_detections")
-
+    
     image_extensions = IMAGE_EXTENSIONS
     #image_files = [
     #    f for f in image_dir.rglob("*") if f.suffix.lower() in image_extensions
@@ -334,7 +327,7 @@ def extract(
         )
         for f in image_files
     ]
-
+    print(args_list)
     with multiprocessing.Pool(processes=n_proc) as pool:
         list(
             tqdm(
