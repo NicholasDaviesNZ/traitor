@@ -285,7 +285,7 @@ def extract(
     args_list = [
         (
             f,
-            out_dir.joinpath(path.relative_to(image_dir).parent).joinpath(f.with_suffix("").name),
+            out_dir.joinpath(f.relative_to(image_dir).parent).joinpath(f.with_suffix("").name),
             background_color,
             masks_output,
             bbox_output,
