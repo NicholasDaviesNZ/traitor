@@ -278,6 +278,8 @@ def measure(
     print("Looking for files ...")
     #dirs = [f for f in input_dir.iterdir() if f.is_dir() and not f.name.startswith(".")]
     dirs = [f for f in input_dir.rglob('*') if f.is_dir() and not f.name.startswith('.')]
+    print(input_dir)
+    print(input_dir.rglob('*'))
     print(dirs)
     
     image_files = np.array([])
