@@ -278,7 +278,7 @@ def measure(
     print("Looking for files ...")
     #dirs = [f for f in input_dir.iterdir() if f.is_dir() and not f.name.startswith(".")]
     dirs = [f for f in input_dir.rglob('*') if f.is_dir() and not f.name.startswith('.')]
-
+    print(dirs)
     
     image_files = np.array([])
     mask_files = np.array([])
