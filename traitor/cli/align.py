@@ -271,6 +271,7 @@ def align(
 
     # mask_dir is a simple directory containing mask images.
     else:
+        print(image_names)
         mask_files = np.array(
             [mask_dir / f"{image_name}_mask.png" for image_name in image_names]
         )
