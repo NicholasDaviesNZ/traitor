@@ -288,7 +288,8 @@ def measure(
     groups = np.array([])
     for d in dirs:
         # should have a check the returned glob is only 1 long
-        print(d, list(d.glob("**/extractions")))
+        print('d: ', d)
+        print("extractions: ", list(d.glob("**/extractions")))
         img_dir = d / list(d.glob("**/extractions"))[0] # "extractions"
         mask_dir = d / list(d.glob("**/masks"))[0] # "masks"  
         contour_dir = d / list(d.glob("**/contours"))[0] # "contours"
