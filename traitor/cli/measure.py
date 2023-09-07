@@ -287,9 +287,10 @@ def measure(
     contour_files = np.array([])
     groups = np.array([])
     for d in dirs:
-        img_dir = d / "extractions"
-        mask_dir = d / "masks"
-        contour_dir = d / "contours"
+        # should have a check the returned glob is only 1 long
+        img_dir = d / list(d.glob("**/extractions"))[0] # "extractions"
+        mask_dir = d / list(d.glob("**/masks"))[0] # "masks"  
+        contour_dir = d / list(d.glob("**/contours"))[0] # "contours"
 
         cur_img_files = np.array(list(img_dir.rglob("*.png")))
         cur_image_names = np.array([f.with_suffix("").name for f in cur_img_files])
