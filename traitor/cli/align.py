@@ -272,7 +272,7 @@ def align(
     # mask_dir is a simple directory containing mask images.
     else:
         mask_files = np.array(
-            [mask_dir / list(d.glob(f"**{image_name}_mask.png"))[0] for image_name in image_names]
+            [mask_dir / list(mask_dir.glob(f"**{image_name}_mask.png"))[0] for image_name in image_names]
         )
         mask_files_matching = np.array([f.exists() for f in mask_files])
         if mask_files_matching.sum() < 1:
