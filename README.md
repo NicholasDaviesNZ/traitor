@@ -1,6 +1,5 @@
 [![DOI](https://zenodo.org/badge/538830664.svg)](https://zenodo.org/badge/latestdoi/538830664)
 
-
 # traitor
 
 A tool to extract morphological traits from images. Note this is a clone and modification from the https://github.com/TankredO/traitor.git repo
@@ -62,6 +61,30 @@ Test your installation:
 ```bash
 traitor -h
 ```
+
+## for nesi runs:
+
+in the terminal navigate to 
+
+cd /nesi/nobackup/agresearch03885/
+
+then to activate the env run:
+
+module purge && module load Miniconda3
+
+source $(conda info --base)/etc/profile.d/conda.sh
+
+export PYTHONNOUSERSITE=1
+
+conda activate /nesi/nobackup/agresearch03885/traitor_env
+
+then to use traitor: 
+
+traitor extract -i "image_data" -o "images_extracted"
+
+traitor align -i "image_data" -m "images_extracted" -o "images_aligned"
+
+traitor measure -i "images_aligned"
 
 ## Functionality
 
