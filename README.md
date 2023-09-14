@@ -71,19 +71,14 @@ cd /nesi/nobackup/agresearch03885/
 then to activate the env run:
 ```
 module purge && module load Miniconda3
-
 source $(conda info --base)/etc/profile.d/conda.sh
-
 export PYTHONNOUSERSITE=1
-
 conda activate /nesi/nobackup/agresearch03885/traitor_env
 ```
 then to use traitor: 
 ```
 traitor extract -i "image_data" -o "images_extracted"
-
 traitor align -i "image_data" -m "images_extracted" -o "images_aligned"
-
 traitor measure -i "images_aligned"
 ```
 ## Functionality
