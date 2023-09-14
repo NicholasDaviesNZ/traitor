@@ -254,8 +254,8 @@ def get_minsize_adaptive2(
 
 def filter_bin_image(
     bin_image: np.ndarray,
-    min_size: int = 256,
-    area_threshold: int = 256,
+    min_size: int = 64,
+    area_threshold: int = 64,
 ) -> np.ndarray:
     bin_image = skimage.morphology.binary_erosion(bin_image)
     bin_image = skimage.morphology.binary_dilation(bin_image)
